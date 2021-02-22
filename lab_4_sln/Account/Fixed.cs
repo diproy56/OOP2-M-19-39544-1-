@@ -6,34 +6,33 @@ using System.Threading.Tasks;
 
 namespace lab_4
 {
-    class SpecialCurrent : Account
+    class Fixed : Account
     {
-        int openingBalabce, minBalance;
+        int tenureYear = 2, year;
 
-        public SpecialCurrent() { }
-        public SpecialCurrent(string acName, string acid, int balance)
+        public Fixed() { }
+        public Fixed(string acName, string acid, int balance, int year)
             : base(acName, acid, balance)
         {
-            openingBalabce = balance;
-            minBalance = (openingBalabce * 10) / 100;
+            this.year = year;
         }
 
         new public void Withdraw(int amount)
         {
-            if ((base.Balance - amount) >= minBalance)
+            if (tenureYear == this.year)
                 base.Withdraw(amount);
             else
-                Console.WriteLine("Insaficient Balance."); Console.WriteLine();
+                Console.WriteLine("Account need to mature."); Console.WriteLine();
         }
 
         new public void Deposit(int amount) { base.Deposit(amount); }
 
         new public void Transfer(int amount, Account acc)
         {
-            if ((base.Balance - amount) >= minBalance)
+            if (tenureYear == this.year)
                 base.Transfer(amount, acc);
             else
-                Console.WriteLine("Insaficient Balance."); Console.WriteLine();
+                Console.WriteLine("Account need to mature."); Console.WriteLine();
         }
     }
 }

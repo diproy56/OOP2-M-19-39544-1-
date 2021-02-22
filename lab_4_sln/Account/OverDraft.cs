@@ -6,21 +6,20 @@ using System.Threading.Tasks;
 
 namespace lab_4
 {
-    class SpecialCurrent : Account
+    class OverDraft : Account
     {
-        int openingBalabce, minBalance;
+        int limit = 50000;
 
-        public SpecialCurrent() { }
-        public SpecialCurrent(string acName, string acid, int balance)
+        public OverDraft() { }
+        public OverDraft(string acName, string acid, int balance)
             : base(acName, acid, balance)
         {
-            openingBalabce = balance;
-            minBalance = (openingBalabce * 10) / 100;
+            base.Balance = balance + limit;
         }
 
         new public void Withdraw(int amount)
         {
-            if ((base.Balance - amount) >= minBalance)
+            if (base.Balance >= amount)
                 base.Withdraw(amount);
             else
                 Console.WriteLine("Insaficient Balance."); Console.WriteLine();
@@ -30,7 +29,7 @@ namespace lab_4
 
         new public void Transfer(int amount, Account acc)
         {
-            if ((base.Balance - amount) >= minBalance)
+            if (base.Balance >= amount)
                 base.Transfer(amount, acc);
             else
                 Console.WriteLine("Insaficient Balance."); Console.WriteLine();
